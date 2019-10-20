@@ -1,9 +1,13 @@
+
 # Contents
 - [Contents](#contents)
   - [Introduction](#introduction)
   - [From Matlab to Python 3](#from-matlab-to-python-3)
   - [Getting Started](#getting-started)
   - [What am I looking at?](#what-am-i-looking-at)
+
+[![Build Status](https://travis-ci.org/mchapman87501/ebm_1d.svg?branch=master)](https://travis-ci.org/mchapman87501/ebm_1d)
+[![CircleCI](https://circleci.com/gh/mchapman87501/ebm_1d.svg?style=svg)](https://circleci.com/gh/mchapman87501/ebm_1d)
 
 ## Introduction
 
