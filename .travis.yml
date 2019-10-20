@@ -10,9 +10,9 @@ jobs:
       osx_image: xcode11
       language: shell
 install:
-    pip3 install --upgrade pip
-    pip3 install -r requirements.txt
-    pip3 install flake8 pycodestyle
+    - pip3 install --upgrade pip
+    - pip3 install -r requirements.txt
+    - pip3 install flake8 pycodestyle
 script:
-    flake8
-    pytest
+    - flake8
+    - pytest
