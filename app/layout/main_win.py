@@ -1,12 +1,7 @@
 #!/usr/bin/env python3
 # type: ignore
-# To get pyside2 within an anaconda environment:
-# conda install -c conda-forge pyside2
-# For hints on building a PySide2 UI:
-# https://wiki.qt.io/Qt_for_Python_Tutorial:_Data_Visualization_Tool
 
 import sys
-import typing as tp
 from PySide2.QtGui import QPainter, QIntValidator, QDoubleValidator
 from PySide2.QtWidgets import (
     QApplication,
@@ -36,9 +31,6 @@ class MainWinContent(QWidget):
         size = QSizePolicy(QSizePolicy.Preferred, QSizePolicy.Preferred)
         size.setVerticalStretch(1)
 
-        # TODO Add:
-        # Control for setting number of latitude bands
-        #   Recalc immediately on change
         grid = QGridLayout()
         grid.setColumnStretch(3, 1)
         grid.addWidget(self._label("Bands:"), 0, 0)
@@ -46,7 +38,6 @@ class MainWinContent(QWidget):
             0, 90, tooltip="Number of latitude bands"
         )
         grid.addWidget(self.lat_bands_field, 0, 1)
-        # TODO add a spacer
 
         # Control for setting initial global average temperature
         grid.addWidget(self._label("Init. Temp:"), 1, 0)
@@ -59,7 +50,7 @@ class MainWinContent(QWidget):
 
         grid.addWidget(self.gat0_field, 1, 1)
 
-        # Control sfor setting range of solar multiplier values
+        # Control for setting range of solar multiplier values
         grid.addWidget(self._label("Solar Multiplier:"), 2, 0)
         ff = self._float_field
         field = self.min_sol_mult_field = ff(
@@ -77,8 +68,6 @@ class MainWinContent(QWidget):
         )
         grid.addWidget(field, 2, 2)
 
-        #   No Recalc button: Recalc immediately on change
-
         layout.addLayout(grid)
 
         # Display of global average temperature vs. solar multiplier,
@@ -91,12 +80,10 @@ class MainWinContent(QWidget):
         size.setVerticalStretch(1)
         chart_view.setSizePolicy(size)
         chart_view.setMinimumSize(480, 320)
-        # chart_view.setBackgroundBrush(QBrush(QColor(255, 255, 255)))
-        # chart_view.setForegroundBrush(QBrush(QColor(0, 0, 255)))
 
         self._main_layout.addWidget(chart_view)
 
-        # Display of average temperature by latitude band, for a given
+        # Display of albedo by latitude band, for a given
         # point on the rising plot
         hbox = QHBoxLayout()
         hbox.addStretch(1)
@@ -112,7 +99,7 @@ class MainWinContent(QWidget):
 
         hbox.addStretch(1)
 
-        # Display of average temperature by latitude band, for a given
+        # Display of albedo by latitude band, for a given
         # point on the falling plot
         vbox2 = QVBoxLayout()
         vbox2.addWidget(self._label("Falling", Qt.AlignCenter))
@@ -125,7 +112,6 @@ class MainWinContent(QWidget):
         hbox.addStretch(1)
 
         self._main_layout.addLayout(hbox)
-
         self.setLayout(self._main_layout)
 
     def _label(

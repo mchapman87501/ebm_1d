@@ -1,16 +1,14 @@
 #!/usr/bin/env python3
 """
+Someday this will provide actual unit tests for the insol module.
 """
 
-from .insol import *
-from .insol_params import *
-from .earth_geom import *
+from .insol import Insol
+from .insol_params import InsolParams
+from .earth_geom import EarthGeom
 
 
 def test_effective_solar_constant() -> None:
-    # How is S measured?  Scientists had a good estimate of its value
-    # long before we could send any objects/instruments above our
-    # atmosphere.
     ip = InsolParams()
     eg = EarthGeom(9)
     s = ip.solar_const

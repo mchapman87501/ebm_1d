@@ -3,7 +3,6 @@
 Adds behavior to the main window.
 """
 
-import bisect
 import sys
 import typing as tp
 
@@ -12,13 +11,7 @@ from PySide2.QtCore import Qt, QObject, QTimer, Signal, QPointF
 from PySide2.QtCharts import QtCharts
 
 from ..layout.main_win import MainWin
-from ..model.model import (
-    Model,
-    ResultGen,
-    AvgTempResult,
-    Solution,
-    ResultSeries,
-)
+from ..model.model import Model, ResultGen, AvgTempResult
 
 
 NumberConverter = tp.Callable[[str], float]

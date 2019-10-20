@@ -5,7 +5,6 @@ Creates a Qt app to interactively test sphere_vc.py.
 
 
 import sys
-import typing as tp
 
 import numpy as np
 

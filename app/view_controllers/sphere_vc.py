@@ -4,7 +4,6 @@ Provides a way to present a view of a planetary sphere.
 """
 
 from pathlib import Path
-import typing as tp
 
 from PySide2.QtGui import QColor, QVector3D as V3
 from PySide2.QtCore import QUrl
@@ -13,7 +12,7 @@ from PySide2.Qt3DCore import Qt3DCore
 from PySide2.Qt3DRender import Qt3DRender
 
 
-# See https://code.qt.io/cgit/qt/qt3d.git/tree/examples/qt3d/basicshapes-cpp/main.cpp?h=5.13
+# See https://code.qt.io/cgit/qt/qt3d.git/tree/examples/qt3d/basicshapes-cpp/main.cpp?h=5.13  # noqa: E501
 # I try to separate GUI-related code into layout and interaction, but of
 # course "widgets" - the things being arranged - encompass both.
 class SphereVC:
@@ -68,7 +67,7 @@ class SphereVC:
 
     def set_texture(self, img_path: Path) -> None:
         # This is from https://stackoverflow.com/q/49887994/2826337
-        # and from https://forum.qt.io/topic/106370/qdiffusespecularmaterial-diffuse-texture/4
+        # and from https://forum.qt.io/topic/106370/qdiffusespecularmaterial-diffuse-texture/4  # noqa: E501
         loader = Qt3DRender.QTextureLoader(self.entity)
         img_url = QUrl.fromLocalFile(str(img_path.resolve()))
         loader.setSource(img_url)

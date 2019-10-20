@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Provids an interactive 1D EBM.
+Provides an interactive 1D EBM.
 """
 
 import sys

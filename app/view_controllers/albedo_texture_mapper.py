@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """
+Provides a way to generate texture map images from albedo values.
 """
 
-import datetime
 import math
 import numpy as np
 from pathlib import Path
@@ -20,19 +20,9 @@ def _gen_img_ids() -> tp.Generator[str, None, None]:
 
 
 class AlbedoTextureMapper:
-    """Generates OpenGL texture maps to represent by-latitude albedo."""
-
-    # TODO build/add texture representing albedo by latitude.
-    # https://stackoverflow.com/q/54451636/2826337
-
-    # Strategies:
-    # Use pillow to generate a 1-pixel-wide albedo strip image
-    # Then either:
-    #    Save the image to a temporary file and set its path as a
-    #    QTextureImage source URL;
-    # or
-    #    Construct an inline 'data:image/png' URL from the image data,
-    #    and set that as the QTextureImage source URL.
+    """
+    Generates OpenGL texture maps to represent by-latitude albedo.
+    """
 
     def __init__(self) -> None:
         self._working_dir = Path(tempfile.mkdtemp())
@@ -63,7 +53,6 @@ class AlbedoTextureMapper:
         values: tp.List[int] = []
         dlat = math.pi / num_intervals
         lat = -math.pi / 2.0
-        lat_max = math.pi / 2.0
         scale = 100.0
 
         for v in lat_values:

@@ -39,61 +39,9 @@ class Insol:
         self._avg_insol = sum(self._eg.lats_frac * self._insol_by_lat)
 
     def _calc_solar_constant(self) -> float:
-        return self._params.solar_const / 4.0
         # Ratio of cross-sectional area of a sphere to surface area of
         # a sphere is (π * r**2) / (4 * π * r**2)
-
-    def _literal_translation_calc_solar_constant(self) -> float:
-        """
-        I'm not sure of the purpose of this calculation, taken from
-        the matlab code.  It tries to average insolation over a
-        cylinder - not even a perfect sphere.  It repeats essentially
-        the same calculation around all 360 degrees of the cyliner, 24
-        times - basically adding a small starting offset,
-        corresponding loosely to the noon angular offset of the sun.
-        I suspect an equivalent analytic solution would say:
-        if the earth were a perfect sphere, it would intercept an
-        amount of solar power proportional to its cross-sectional
-        area: π*R**2.  Assuming a constant rate of rotation of
-        360°/day, that "pressure" - 
-        S ((joules / sec) / m**2) * π * R**2 
-            * (24 * 60 * 60) secs/day
-        - would be distributed evenly across the whole area of the
-        - sphere: 4 * π * R**2.
-        So, the effective solar constant would be S / 4.
-
-        As it turns out, this function computes something quite different:
-        the calculated solar constant as returned by this
-        code is S / π.  (?!)
-        
-        """
-        hours_in_day = self._params.hrs_in_day
-        zonal_deg = self._params.zonal_deg
-        solar_const = self._params.solar_const
-
-        sum_insol = 0.0
-        for hr in np.arange(hours_in_day):
-            # Noon angle is effectively a fraction of a revolution -
-            # 2π radians - expressed in degrees.
-            noon_angle = zonal_deg * hr / hours_in_day
-            for longitude in np.arange(zonal_deg):
-                sun_angle = D2R * (longitude - noon_angle)
-                sum_insol += max(0.0, math.cos(sun_angle))
-        result = sum_insol * solar_const / (hours_in_day * zonal_deg)
-        print("Solar const:", solar_const)
-        print("Calc'd solar const:", result)
-        # The ratio of solar_const to this result is ... PI?!
-        # That's what you'd expect, analytically, when you are
-        # computing effective solar constant incident on a cylinder,
-        # rather than a sphere:
-        # A cylinder with axis ortho to the plane of incident radiation
-        # has cross-sectional area 2 * r * h, where r is the cylinder's
-        # radius and h is its height.
-        # The surface area of the cylinder, ignoring its end "caps"
-        # (they are ignored in this algorithm)
-        # is 2 * π * r * h.  So the ratio of cap-less area
-        # to cross-section is π.
-        return result
+        return self._params.solar_const / 4.0
 
     def _unnormed_total_annual_insolation(self) -> np.ndarray:
         # Accumulate normalized insolation throughout a year.

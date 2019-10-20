@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 """
-Use the model to create a plot showing hysteresis - 
+Use the model to create a plot showing hysteresis -
 the idea of climate tipping points.
 """
 import typing as tp
@@ -13,7 +13,7 @@ from .model import Model, ResultSeries, AvgTempResult
 
 def plot_averages(*result_sets: ResultSeries) -> None:
     # Plot temperature ranges.
-    fig = plt.figure()
+    plt.figure()
     for result_set in result_sets:
         results = result_set.results
         solar_mults = [rec.solar_mult for rec in results]
