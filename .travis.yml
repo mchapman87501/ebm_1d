@@ -1,5 +1,6 @@
 # This is cargo-culted from
 # https://docs.travis-ci.com/user/languages/python/
+# https://www.scivision.dev/travis-ci-osx-python/
 
 language: python
 jobs:
@@ -10,9 +11,9 @@ jobs:
       osx_image: xcode11
       language: shell
 install:
-    - pip3 install --upgrade pip
-    - pip3 install -r requirements.txt
-    - pip3 install flake8 pycodestyle
+    - python3 -m pip install --upgrade pip
+    - python3 -m pip install -r requirements.txt
+    - python3 -m pip install flake8 pycodestyle
 script:
     - flake8
     - pytest
