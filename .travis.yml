@@ -1,0 +1,18 @@
+# This is cargo-culted from
+# https://docs.travis-ci.com/user/languages/python/
+
+language: python
+jobs:
+  include:
+    - name: "Python 3.7 on Xenial Linux"
+      python: 3.7
+    - name: "Python 3.7 on macOS"
+      osx_image: xcode11
+      language: shell
+install:
+    pip3 install --upgrade pip
+    pip3 install -r requirements.txt
+    pip3 install flake8 pycodestyle
+script:
+    flake8
+    pytest
