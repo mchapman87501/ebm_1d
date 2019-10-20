@@ -7,13 +7,18 @@ jobs:
   include:
     - name: "Python 3.7 on Xenial Linux"
       python: 3.7
-    - name: "Python 3.7 on macOS"
+    - name: "Homebrew Python 3 on macOS"
+      os: osx
       osx_image: xcode11
       language: shell
+      before_install:
+        - brew update
+        - brew install python
+      env: PATH=/usr/local/bin:${PATH}
 install:
-    - python3 -m pip install --upgrade pip
+    - python3 --version
+    - python3 -m pip install --upgrade pip flake8 pycodestyle
     - python3 -m pip install -r requirements.txt
-    - python3 -m pip install flake8 pycodestyle
 script:
     - flake8
     - pytest
