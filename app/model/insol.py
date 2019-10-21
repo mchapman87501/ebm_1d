@@ -34,9 +34,7 @@ class Insol:
         self._eg = earth_geom
 
         self._solar_constant = self._calc_solar_constant()
-
         self._insol_by_lat = self._unnormed_total_annual_insolation()
-        self._avg_insol = sum(self._eg.lats_frac * self._insol_by_lat)
 
     def _calc_solar_constant(self) -> float:
         # Ratio of cross-sectional area of a sphere to surface area of
@@ -44,20 +42,29 @@ class Insol:
         return self._params.solar_const / 4.0
 
     def _unnormed_total_annual_insolation(self) -> np.ndarray:
-        # Accumulate normalized insolation throughout a year.
+        # Accumulate insolation throughout a year.
         days_in_year = self._params.days_in_yr
         year_per_day = 1.0 / days_in_year
         max_tilt = self._params.max_tilt * math.pi / 180.0
         max_zenith = math.pi / 2.0
         lats_rads = self._eg.lats_rad
-
+        lats_frac = self._eg.lats_frac  # Fraction of total area by band
         year_fract = year_per_day
         insolation = np.zeros(len(lats_rads))
         for i in range(int(days_in_year)):
             tilt = max_tilt * math.cos(2.0 * math.pi * year_fract)
-            for j, lat_rads in enumerate(lats_rads):
-                zenith = min(lat_rads + tilt, max_zenith)
-                insolation[j] += math.cos(zenith)
+            day_insol = 0.0
+            for j, (lrads, larea) in enumerate(zip(lats_rads, lats_frac)):
+                # Add the fraction of available insolation received
+                # by this band given its axial tilt.  Double the fraction
+                # on the assumption that lats_rads covers only one hemisphere.
+                # Assume the asymmetry error (northern hemi gets more/less
+                # light than southern) is corrected by accumulating over a
+                # whole year of tilt.
+                zenith = min(lrads + tilt, max_zenith)
+                insol_fract = max(0.0, larea * math.cos(zenith))
+                day_insol += insol_fract
+                insolation[j] += insol_fract
             year_fract += year_per_day
 
         # Average insolation across the year, per latitude band.
