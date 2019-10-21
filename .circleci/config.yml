@@ -38,7 +38,7 @@ jobs:
           name: run tests
           command: |
             . venv/bin/activate
-            pytest
+            pytest --cov=app.model
 
       - store_artifacts:
           path: test-reports
