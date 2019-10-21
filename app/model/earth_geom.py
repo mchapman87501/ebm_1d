@@ -36,3 +36,4 @@ class EarthGeom:
 
         total_area = sum(lats_area)
         self.lats_frac = lats_area / total_area
+        self.delta_rad = delta_rad
