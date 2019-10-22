@@ -20,5 +20,5 @@ def test_effective_solar_constant() -> None:
     ratio = s / s_effective
     assert ratio == pytest.approx(4)
 
-    print("Insolation by latitude band:", ins.get_insolation())
-    assert ins.get_insolation().sum() <= ins._solar_constant
+    print("Avg insolation by latitude band:", ins.get_insolation())
+    assert ins.get_insolation().mean() <= ins._solar_constant

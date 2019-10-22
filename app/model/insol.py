@@ -53,18 +53,14 @@ class Insol:
         insolation = np.zeros(len(lats_rads))
         for i in range(int(days_in_year)):
             tilt = max_tilt * math.cos(2.0 * math.pi * year_fract)
-            day_insol = 0.0
             for j, (lrads, larea) in enumerate(zip(lats_rads, lats_frac)):
-                # Add the fraction of available insolation received
-                # by this band given its axial tilt.  Double the fraction
-                # on the assumption that lats_rads covers only one hemisphere.
+                # Add the fraction of insolation available to this
+                # band that is actually received, given axial tilt.
                 # Assume the asymmetry error (northern hemi gets more/less
                 # light than southern) is corrected by accumulating over a
                 # whole year of tilt.
                 zenith = min(lrads + tilt, max_zenith)
-                insol_fract = max(0.0, larea * math.cos(zenith))
-                day_insol += insol_fract
-                insolation[j] += insol_fract
+                insolation[j] += math.cos(zenith)
             year_fract += year_per_day
 
         # Average insolation across the year, per latitude band.
