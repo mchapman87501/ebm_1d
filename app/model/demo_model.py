@@ -31,7 +31,7 @@ def main() -> None:
     m = Model()
     rising: tp.List[AvgTempResult] = []
     falling: tp.List[AvgTempResult] = []
-    for solution in m.gen_temps(0.5, 2.0, -60.0, 9):
+    for solution in m.gen_temps(4.0, 8.0, -60.0, 9):
         seq = rising if solution.delta > 0 else falling
         seq.append(solution)
 

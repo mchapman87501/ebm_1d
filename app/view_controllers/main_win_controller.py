@@ -203,7 +203,7 @@ class MainWinController:
         self._main_win.show()
 
     def _connect_controls(self) -> None:
-        self._exit_action.triggered.connect(sys.exit)
+        self._exit_action.triggered.connect(self._main_win.close)
         for field in [
             self._lat_bands_field,
             self._gat0_field,
@@ -218,8 +218,8 @@ class MainWinController:
     def _init_control_content(self) -> None:
         self._lat_bands_field.set_value(9)
         self._gat0_field.set_value(-60)
-        self._min_sol_mult_field.set_value(0.5)
-        self._max_sol_mult_field.set_value(2)
+        self._min_sol_mult_field.set_value(4)
+        self._max_sol_mult_field.set_value(8)
 
     def _model_updated(self) -> None:
         self._model = Model()

@@ -35,7 +35,7 @@ class MainWinContent(QWidget):
         grid.setColumnStretch(3, 1)
         grid.addWidget(self._label("Bands:"), 0, 0)
         self.lat_bands_field = self._int_field(
-            0, 90, tooltip="Number of latitude bands"
+            0, 360, tooltip="Number of latitude bands"
         )
         grid.addWidget(self.lat_bands_field, 0, 1)
 
@@ -55,14 +55,14 @@ class MainWinContent(QWidget):
         ff = self._float_field
         field = self.min_sol_mult_field = ff(
             0,
-            2,
+            100,
             placeholder="Min",
             tooltip="Minimum Solar Constant multiplier",
         )
         grid.addWidget(field, 2, 1)
         field = self.max_sol_mult_field = ff(
             0,
-            2,
+            100,
             placeholder="Max",
             tooltip="Maximum Solar Constant multiplier",
         )

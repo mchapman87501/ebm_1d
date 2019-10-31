@@ -13,7 +13,7 @@ import typing as tp
 import numpy as np
 
 from .temp_solver import TempSolver, Solution
-from .earth_geom import EarthGeom
+from .earth_model import EarthModel
 
 
 @dataclass
@@ -46,13 +46,13 @@ class Model:
         The model generates global average temperature and lat band temps
         for a range of solar multiples, for a given number of latitude zones.
         """
-        eg = EarthGeom(num_lat_zones)
-        solver = TempSolver(eg)
+        em = EarthModel(num_lat_zones)
+        solver = TempSolver(em)
 
         gat0 = np.full(num_lat_zones, initial_gat)
         a0 = np.full(num_lat_zones, 0.0)
 
-        num_solar_mults = 20
+        num_solar_mults = 10
         delta = (max_solar_mult - min_solar_mult) / num_solar_mults
 
         ascending = np.arange(min_solar_mult, max_solar_mult, delta)
