@@ -5,7 +5,6 @@ Provides a way to solve iteratively for latitudinal temperature.
 
 from dataclasses import dataclass
 import numpy as np
-import typing as tp
 
 from .earth_model import EarthModel
 

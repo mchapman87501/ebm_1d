@@ -26,8 +26,6 @@ def test_default_scenario() -> None:
     solver = TempSolver(eg)
 
     temps = np.full(num_lat_zones, -60.0)
-    solar_mult = 0.6
-    solution = solver.solve(solar_mult, temps)
 
     # Verify that the model demonstrates hysteresis in the
     # expected range of solar multipliers, when the
