@@ -40,14 +40,16 @@ class Model:
         max_solar_mult: float,
         initial_gat: float,
         num_lat_zones: int,
+        lat_transfer_coeff: float = 7.6,
     ) -> ResultGen:
         """
         Initialize a new instance.
         The model generates global average temperature and lat band temps
-        for a range of solar multiples, for a given number of latitude zones.
+        for a range of solar multiples, for a given number of latitude zones,
+        for a given lateral head transfer coefficient.
         """
         em = EarthModel(num_lat_zones)
-        solver = TempSolver(em)
+        solver = TempSolver(em, lat_transfer_coeff)
 
         gat0 = np.full(num_lat_zones, initial_gat)
         a0 = np.full(num_lat_zones, 0.0)

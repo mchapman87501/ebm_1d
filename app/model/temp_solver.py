@@ -21,8 +21,12 @@ class Solution:
 
 
 class TempSolver:
-    def __init__(self, earth_model: EarthModel) -> None:
+    def __init__(
+        self, earth_model: EarthModel, lat_transfer_coeff: float = 7.6
+    ) -> None:
         self._em = earth_model
+        # Latitude band heat transfer coefficient, W/m**2:
+        self._lat_transfer_coeff = lat_transfer_coeff
 
     def solve(
         self, solar_mult: float, temp: np.ndarray, max_iter: int = 100
@@ -33,7 +37,7 @@ class TempSolver:
         """
         threshold = 0.05  # We're done when max_temp_diff reaches this thresh.
         m_insol = solar_mult * self._em.insol_by_lat
-        f = 7.6  # Transport coefficient, W/m**2
+        f = self._lat_transfer_coeff
         a = 204.0  # Radiative heat-loss coefficient, intercept
         b = 2.17  # Radiative heat-loss coefficient, slope
         denom = b + f

@@ -184,6 +184,7 @@ class MainWinController:
         self._max_sol_mult_field = NumberField.for_float(
             mw.max_sol_mult_field
         )
+        self._lat_trans_field = NumberField.for_float(mw.lhtc_field)
 
         self._model: tp.Optional[Model] = None
         self._result_gen: tp.Optional[ResultGen] = None
@@ -209,6 +210,7 @@ class MainWinController:
             self._gat0_field,
             self._min_sol_mult_field,
             self._max_sol_mult_field,
+            self._lat_trans_field,
         ]:
             field.value_changed.connect(self._model_updated)
         self._chart_controller.selected_solar_mult.connect(
@@ -216,10 +218,12 @@ class MainWinController:
         )
 
     def _init_control_content(self) -> None:
+        # Set default field values.
         self._lat_bands_field.set_value(9)
         self._gat0_field.set_value(-60)
         self._min_sol_mult_field.set_value(4)
         self._max_sol_mult_field.set_value(8)
+        self._lat_trans_field.set_value(7.6)
 
     def _model_updated(self) -> None:
         self._model = Model()
@@ -231,8 +235,9 @@ class MainWinController:
             sm_max = self._max_sol_mult_field.value()
             gat = self._gat0_field.value()
             lat_bands = int(self._lat_bands_field.value())
+            lat_heat_transfer = self._lat_trans_field.value()
             self._result_gen = self._model.gen_temps(
-                sm_min, sm_max, gat, lat_bands
+                sm_min, sm_max, gat, lat_bands, lat_heat_transfer
             )
             self._get_result_later(10)
         except ValueError as info:

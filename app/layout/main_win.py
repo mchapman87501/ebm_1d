@@ -68,6 +68,16 @@ class MainWinContent(QWidget):
         )
         grid.addWidget(field, 2, 2)
 
+        # Control rate of lateral heat transfer:
+        grid.addWidget(self._label("Transfer Coefficient:"), 3, 0)
+        field = self.lhtc_field = ff(
+            0,
+            10,
+            placeholder="W/m^2",
+            tooltip="Latitudinal heat transport coefficient, W/m^2",
+        )
+        grid.addWidget(field, 3, 1)
+
         layout.addLayout(grid)
 
         # Display of global average temperature vs. solar multiplier,
