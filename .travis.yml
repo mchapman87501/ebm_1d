@@ -11,9 +11,10 @@ jobs:
       os: osx
       osx_image: xcode11
       language: shell
-      before_install:
-        - brew update
-        - brew install python
+      addons:
+        homebrew:
+          packages:
+          - python
       env: PATH=/usr/local/bin:${PATH}
 install:
     - python3 --version
