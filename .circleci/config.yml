@@ -40,9 +40,9 @@ jobs:
           name: lint and test
           command: |
             . venv/bin/activate
-            flake8 --count --show-source --statistics .
+            flake8 --count --show-source --statistics one_dim_ebm.py app
             pytest --cov=app.model
-            black --check --quiet .
+            black --check --quiet one_dim_ebm.py app
 
       - store_artifacts:
           path: test-reports
