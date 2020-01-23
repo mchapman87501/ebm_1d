@@ -9,7 +9,7 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Build Status](https://travis-ci.org/mchapman87501/ebm_1d.svg?branch=master)](https://travis-ci.org/mchapman87501/ebm_1d)
 [![CircleCI](https://circleci.com/gh/mchapman87501/ebm_1d.svg?style=svg)](https://circleci.com/gh/mchapman87501/ebm_1d)
-
+![](https://github.com/mchapman87501/ebm_1d/workflows/Lint%20and%20Test/badge.svg)
 ## Introduction
 
 I recently took an online course, ["Climate Change: The Science and Global Impact"](https://courses.edx.org/courses/course-v1:SDGAcademyX+CCSI001+3T2019/course/), by Dr. Michael Mann.  If you're looking for a gentle introduction to climate modeling and what it predicts for our planet, I highly recommend the course.
