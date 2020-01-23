@@ -22,6 +22,6 @@ install:
     - python3 -m pip install -r requirements.txt
     - python3 -m pip install -r testing_requirements.txt
 script:
-    - flake8
+    - flake8 --count --show-source --statistics .
     - pytest --cov=app.model
     - black --check --quiet .
