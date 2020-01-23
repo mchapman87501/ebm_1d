@@ -18,8 +18,10 @@ jobs:
       env: PATH=/usr/local/bin:${PATH}
 install:
     - python3 --version
-    - python3 -m pip install --upgrade pip flake8 pycodestyle
+    - python3 -m pip install --upgrade pip
     - python3 -m pip install -r requirements.txt
+    - python3 -m pip install -r testing_requirements.txt
 script:
     - flake8
     - pytest --cov=app.model
+    - black --check --quiet .
