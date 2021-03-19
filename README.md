@@ -7,7 +7,7 @@
   - [What am I looking at?](#what-am-i-looking-at)
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![Build Status](https://travis-ci.org/mchapman87501/ebm_1d.svg?branch=master)](https://travis-ci.org/mchapman87501/ebm_1d)
+[![Build Status](https://travis-ci.com/mchapman87501/ebm_1d.svg?branch=master)](https://travis-ci.com/mchapman87501/ebm_1d)
 [![CircleCI](https://circleci.com/gh/mchapman87501/ebm_1d.svg?style=svg)](https://circleci.com/gh/mchapman87501/ebm_1d)
 ![](https://github.com/mchapman87501/ebm_1d/workflows/Lint%20and%20Test/badge.svg)
 ## Introduction
