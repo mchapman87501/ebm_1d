@@ -26,10 +26,10 @@ jobs:
         python -m pip install -r testing_requirements.txt
     - name: Lint with flake8
       run: |
-        flake8 --count --show-source --statistics .
+        flake8 --count --show-source --statistics one_dim_ebm.py app
     - name: Test with pytest
       run: |
         pytest --cov=app.model
     - name: Double-check formatting
       run: |
-        black --check --quiet .
+        black --check --quiet one_dim_ebm.py app
