@@ -1,5 +1,11 @@
 __pycache__/
+/.vscode
+/.direnv
 .mypy_cache/
+.pytest_cache/
 .idea/
-*.pyc
+/htmlcov
 
+.coverage
+.envrc
+*.pyc
