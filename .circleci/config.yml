@@ -7,7 +7,9 @@ orbs:
   python: circleci/python@2.0.3
 jobs:
   lint_and_test:
-    executor: python/default
+    docker:
+      - image: cimg/python:3.10
+
     steps:
       - checkout
 
