@@ -6,9 +6,9 @@ Adds behavior to the main window.
 import sys
 import typing as tp
 
-from PySide2.QtWidgets import QApplication, QLineEdit
-from PySide2.QtCore import Qt, QObject, QTimer, Signal, QPointF
-from PySide2.QtCharts import QtCharts
+from PySide6.QtWidgets import QApplication, QLineEdit
+from PySide6.QtCore import Qt, QObject, QTimer, Signal, QPointF
+from PySide6 import QtCharts
 
 from ..layout.main_win import MainWin
 from ..model.model import Model, ResultGen, AvgTempResult
@@ -130,6 +130,7 @@ class ChartController(QObject):
             self.selected_solar_mult.emit(point.x())
 
     def _handle_click(self, point: QPointF) -> None:
+        print("Clicked", point.x())
         self.selected_solar_mult.emit(point.x())
 
     def get_rising_solution(
@@ -244,7 +245,9 @@ class MainWinController:
             pass
             print("Could not create new model: ", info)
 
-    def _get_result_later(self, msec: tp.Optional[int] = 10) -> None:
+    def _get_result_later(self, msec: tp.Optional[int] = None) -> None:
+        if msec is None:
+            msec = 10
         QTimer.singleShot(msec, self._get_model_result)
 
     def _get_model_result(self) -> None:
