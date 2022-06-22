@@ -3,13 +3,14 @@
 Provides a way to present a view of a planetary sphere.
 """
 
+import os
 from pathlib import Path
 
-from PySide2.QtGui import QColor, QVector3D as V3
-from PySide2.QtCore import QUrl
-from PySide2.Qt3DExtras import Qt3DExtras
-from PySide2.Qt3DCore import Qt3DCore
-from PySide2.Qt3DRender import Qt3DRender
+from PySide6.QtGui import QColor, QVector3D as V3
+from PySide6.QtCore import QUrl
+from PySide6.Qt3DExtras import Qt3DExtras
+from PySide6.Qt3DCore import Qt3DCore
+from PySide6.Qt3DRender import Qt3DRender
 
 
 # See https://code.qt.io/cgit/qt/qt3d.git/tree/examples/qt3d/basicshapes-cpp/main.cpp?h=5.13  # noqa: E501
@@ -69,7 +70,8 @@ class SphereVC:
         # This is from https://stackoverflow.com/q/49887994/2826337
         # and from https://forum.qt.io/topic/106370/qdiffusespecularmaterial-diffuse-texture/4  # noqa: E501
         loader = Qt3DRender.QTextureLoader(self.entity)
-        img_url = QUrl.fromLocalFile(str(img_path.resolve()))
+        local_pathname = os.fspath(img_path.resolve())
+        img_url = QUrl.fromLocalFile(local_pathname)
         loader.setSource(img_url)
 
         self.material.setDiffuse(loader)

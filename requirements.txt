@@ -1,4 +1,6 @@
-numpy~=1.20
-Pillow~=9.0
-PySide2~=5.13
-shiboken2~=5.13
+numpy~=1.22
+Pillow~=9.1
+# PySide6 6.3.1 QTextureLoader seems not to work.
+# And 6.3.1 seems to have a massive memory leak somewhere in
+# Qt3DCore
+PySide6==6.2.4

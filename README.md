@@ -26,7 +26,7 @@ The book explained that the model had been re-implemented in many programming la
 
 ## From Matlab to Python 3
 
-This repository contains a variant of the 1D EBM written for Python 3.9.  It uses PySide2 for the GUI, together with numpy and Pillow (the latter for generating albedo texture images).
+This repository contains a variant of the 1D EBM written for Python 3.10.  It uses PySide6 for the GUI, together with numpy and Pillow (the latter for generating albedo texture images).
 
 The code in this repository is based on the [Matlab implementation](http://nngroup.physics.sunysb.edu/~chiaki/BMCC/Mentor/Climate/NYU1DimModel/one_dim_ebm/).  I also found a JavaScript implementation, underlying [an interactive online version](http://www.climate.be/textbook/EBM.html) of the 1D EBM that's part of an online textbook:
 

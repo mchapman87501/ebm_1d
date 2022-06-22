@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+import numpy as np
 from PIL import Image
 import pytest
 import typing as tp
@@ -25,6 +26,7 @@ def test_atm1(atm1_cases) -> None:  # type: ignore
     m = AlbedoTextureMapper()
 
     for albedos, expected in atm1_cases:
+        albedos = np.array(albedos)
         img_path = m.img_from_albedos(albedos)
         img = Image.open(img_path)
         # img height should be > len(albedos).

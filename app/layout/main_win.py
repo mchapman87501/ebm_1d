@@ -2,12 +2,11 @@
 # type: ignore
 
 import sys
-from PySide2.QtGui import QPainter, QIntValidator, QDoubleValidator
-from PySide2.QtWidgets import (
+from PySide6.QtGui import QAction, QPainter, QIntValidator, QDoubleValidator
+from PySide6.QtWidgets import (
     QApplication,
     QMainWindow,
     QWidget,
-    QAction,
     QHBoxLayout,
     QVBoxLayout,
     QGridLayout,
@@ -15,8 +14,8 @@ from PySide2.QtWidgets import (
     QLabel,
     QLineEdit,
 )
-from PySide2.QtCore import Qt
-from PySide2.QtCharts import QtCharts
+from PySide6.QtCore import Qt
+from PySide6 import QtCharts
 
 from ..view_controllers.lat_bands_vc import LatBandsVC
 

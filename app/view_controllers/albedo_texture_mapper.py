@@ -32,16 +32,17 @@ class AlbedoTextureMapper:
     def __del__(self) -> None:
         shutil.rmtree(self._working_dir)
 
-    def img_from_albedos(self, albedos: tp.List[float]) -> Path:
+    def img_from_albedos(self, albedos: np.ndarray) -> Path:
         # Assume albedos are in 0.0 ... 1.0
         # Map those to grayscale values, 0..255.
         # Assume the albedo values are for a set of evenly-spaced latitude
         # angles, from -90...90.
-        validate = np.array(albedos)
-        if (validate < 0.0).any() or (validate > 1.0).any():
-            raise ValueError("Albedo values must be in 0.0 ... 1.0")
+        if np.any(albedos < 0.0) or np.any(albedos > 1.0):
+            raise ValueError(
+                f"Albedo values must be in 0.0 ... 1.0: {albedos}"
+            )
 
-        values = [int(255 * a) for a in albedos]
+        values = (255 * albedos).astype(np.uint8)
         if len(albedos) <= 1:
             return self._create_img(values)
         return self._proportional_img(list(values))
@@ -63,13 +64,12 @@ class AlbedoTextureMapper:
             values += [v] * (yf - y0)
 
             lat = lat_next
-        return self._create_img(values)
+        return self._create_img(np.array(values, dtype=np.uint8))
 
-    def _create_img(self, values: tp.List[int]) -> Path:
-        nparray = np.array(values, dtype=np.uint8)
-        nparray.shape = (len(values), 1)
+    def _create_img(self, values: np.ndarray) -> Path:
+        values.shape = (len(values), 1)
 
-        img = Image.fromarray(nparray, mode="L")
+        img = Image.fromarray(values, mode="L")
         output_name = self._working_dir / next(self._img_ids)
         img.save(output_name)
         return output_name

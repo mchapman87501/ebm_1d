@@ -8,9 +8,9 @@ import sys
 
 import numpy as np
 
-from PySide2.QtGui import QColor
-from PySide2.QtWidgets import QAction, QApplication, QMainWindow, QWidget
-from PySide2.Qt3DExtras import Qt3DExtras
+from PySide6.QtGui import QColor, QAction
+from PySide6.QtWidgets import QApplication, QMainWindow, QWidget
+from PySide6.Qt3DExtras import Qt3DExtras
 
 from .sphere_vc import SphereVC
 from .albedo_texture_mapper import AlbedoTextureMapper
@@ -57,7 +57,7 @@ def main() -> None:
     win = MainWin()
     win.exit_action.triggered.connect(sys.exit)
     win.show()
-    app.exec_()
+    app.exec()
 
 
 if __name__ == "__main__":

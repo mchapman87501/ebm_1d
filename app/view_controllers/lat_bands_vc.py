@@ -3,11 +3,11 @@
 Provides a way to depict albedo/temperature by latitude band.
 """
 
-import typing as tp
+import numpy as np
 
-from PySide2.QtGui import QColor
-from PySide2.QtWidgets import QWidget
-from PySide2.Qt3DExtras import Qt3DExtras
+from PySide6.QtGui import QColor
+from PySide6.QtWidgets import QWidget
+from PySide6.Qt3DExtras import Qt3DExtras
 
 from .sphere_vc import SphereVC
 from .albedo_texture_mapper import AlbedoTextureMapper
@@ -28,7 +28,7 @@ class LatBandsVC:
     def _configure_view(self) -> None:
         self.view.defaultFrameGraph().setClearColor(QColor(0, 0, 0))
 
-    def set_albedos(self, albedos: tp.Sequence[float]) -> None:
+    def set_albedos(self, albedos: np.ndarray) -> None:
         """
         Apply a set of albedos to self's sphere.
         albedos is a sequence of albedo values for one hemisphere,
@@ -37,9 +37,9 @@ class LatBandsVC:
 
         # Albedos covers one hemisphere from equator to pole, so it
         # needs to be doubled to represent pole to pole
-        eq_to_pole = list(albedos)
-        pole_to_eq = list(reversed(eq_to_pole))
-        all_values = pole_to_eq + eq_to_pole
+        eq_to_pole = albedos
+        pole_to_eq = albedos[::-1]
+        all_values = np.concatenate((pole_to_eq, eq_to_pole))
 
         texture_img_path = self.albedo_mapper.img_from_albedos(all_values)
         self.sphere_mgr.set_texture(texture_img_path)
