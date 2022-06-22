@@ -70,8 +70,6 @@ class AlbedoTextureMapper:
         values.shape = (len(values), 1)
 
         img = Image.fromarray(values, mode="L")
-        img.show()
         output_name = self._working_dir / next(self._img_ids)
         img.save(output_name)
-        print("Saved image to", output_name)
         return output_name

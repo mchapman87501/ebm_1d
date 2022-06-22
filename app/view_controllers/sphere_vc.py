@@ -70,9 +70,7 @@ class SphereVC:
         # This is from https://stackoverflow.com/q/49887994/2826337
         # and from https://forum.qt.io/topic/106370/qdiffusespecularmaterial-diffuse-texture/4  # noqa: E501
         loader = Qt3DRender.QTextureLoader(self.entity)
-        print("Load texture from", img_path)
         local_pathname = os.fspath(img_path.resolve())
-        print("  Resolved path:", local_pathname)
         img_url = QUrl.fromLocalFile(local_pathname)
         loader.setSource(img_url)
 

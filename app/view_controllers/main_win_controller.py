@@ -130,7 +130,6 @@ class ChartController(QObject):
             self.selected_solar_mult.emit(point.x())
 
     def _handle_click(self, point: QPointF) -> None:
-        print("Clicked", point.x())
         self.selected_solar_mult.emit(point.x())
 
     def get_rising_solution(

@@ -57,7 +57,7 @@ def main() -> None:
     win = MainWin()
     win.exit_action.triggered.connect(sys.exit)
     win.show()
-    app.exec_()
+    app.exec()
 
 
 if __name__ == "__main__":
