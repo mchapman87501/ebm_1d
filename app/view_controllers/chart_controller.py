@@ -9,6 +9,7 @@ from PySide6.QtCore import Qt, QObject, Signal, QPointF
 from PySide6 import QtCharts
 
 from ..model.model import AvgTempResult
+from ..layout.mousing_chart import MousingChart
 
 
 class ChartController(QObject):
@@ -19,11 +20,13 @@ class ChartController(QObject):
     selected_solar_mult = Signal(float)
 
     def __init__(
-        self, chart: QtCharts.QChart, chart_view: QtCharts.QChartView
+        self, chart: MousingChart, chart_view: QtCharts.QChartView
     ) -> None:
         super().__init__()
         self._chart = chart
         self._chart_view = chart_view
+
+        self._chart.hovered.connect(self._handle_whole_chart_hover)
 
         self._chart.removeAllSeries()
         self._rising = self._line_series("Rising")
@@ -82,11 +85,22 @@ class ChartController(QObject):
             ymin, ymax = min(self._y_vals), max(self._y_vals)
             self._chart.axisY().setRange(ymin, ymax)
 
+    def _handle_whole_chart_hover(self, point: QPointF) -> None:
+        # Transform to the data coordinate-space of the chart.
+        # See https://stackoverflow.com/a/44078533
+        scene_pos = self._chart_view.mapToScene(point.toPoint())
+        chart_item_pos = self._chart.mapFromScene(scene_pos)
+        series_point = self._chart.mapToValue(chart_item_pos)
+        print("  Series data x coordinate:", series_point.x())
+        self.selected_solar_mult.emit(series_point.x())
+
     def _handle_hover(self, point: QPointF, moving_in: bool) -> None:
+        return
         if moving_in:
             self.selected_solar_mult.emit(point.x())
 
     def _handle_click(self, point: QPointF) -> None:
+        return
         self.selected_solar_mult.emit(point.x())
 
     def get_rising_solution(

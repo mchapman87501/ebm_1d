@@ -18,6 +18,7 @@ from PySide6.QtCore import Qt
 from PySide6 import QtCharts
 
 from ..view_controllers.lat_bands_vc import LatBandsVC
+from .mousing_chart import MousingChart
 
 
 class MainWinContent(QWidget):
@@ -81,7 +82,7 @@ class MainWinContent(QWidget):
 
         # Display of global average temperature vs. solar multiplier,
         #   rising vs. falling
-        chart = self.gatsm_chart = QtCharts.QChart()
+        chart = self.gatsm_chart = MousingChart()
         chart.setAnimationOptions(QtCharts.QChart.AllAnimations)
         chart_view = self.gatsm_view = QtCharts.QChartView(chart)
         chart_view.setRenderHint(QPainter.Antialiasing)
