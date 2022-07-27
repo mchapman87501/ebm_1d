@@ -44,7 +44,6 @@ Then
 
 ```shell
 $ python one_dim_ebm.py
-$
 ```
 
 ![Screenshot](docs/images/screenshot_1.png "one_dim_ebm.py in action")
