@@ -14,4 +14,4 @@ class MousingChart(QtCharts.QChart):
     hovered = Signal(QPointF)
 
     def hoverMoveEvent(self, event: QGraphicsSceneHoverEvent) -> None:
-        self.hovered.emit(event.scenePos())
+        self.hovered.emit(event.pos())

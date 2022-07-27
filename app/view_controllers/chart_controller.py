@@ -6,6 +6,8 @@ Provides user interaction for a rising/falling temperature chart.
 import typing as tp
 
 from PySide6.QtCore import Qt, QObject, Signal, QPointF
+from PySide6.QtWidgets import QGraphicsLineItem
+from PySide6.QtGui import QPen
 from PySide6 import QtCharts
 
 from ..model.model import AvgTempResult
@@ -18,6 +20,7 @@ class ChartController(QObject):
     """
 
     selected_solar_mult = Signal(float)
+    chart_hover_pos = Signal(QPointF)
 
     def __init__(
         self, chart: MousingChart, chart_view: QtCharts.QChartView
@@ -26,11 +29,15 @@ class ChartController(QObject):
         self._chart = chart
         self._chart_view = chart_view
 
+        # Handle chart hover events, with debounce.
         self._chart.hovered.connect(self._handle_whole_chart_hover)
+        self._last_chart_x = -100.0
 
         self._chart.removeAllSeries()
         self._rising = self._line_series("Rising")
         self._falling = self._line_series("Falling")
+
+        self._hover_line = self._create_hover_line(self._chart)
 
         self._chart.removeAllSeries()
         self._chart.addSeries(self._rising)
@@ -38,7 +45,7 @@ class ChartController(QObject):
         self._chart.createDefaultAxes()
 
         self._chart.setAcceptHoverEvents(True)
-        self._chart.setCursor(Qt.PointingHandCursor)
+        self._chart.setCursor(Qt.CrossCursor)
 
         # Track added values.
         self._x_vals: tp.Set[float] = set()
@@ -50,8 +57,24 @@ class ChartController(QObject):
         result = QtCharts.QLineSeries()
         result.setName(name)
         result.setPointsVisible(True)
-        result.hovered.connect(self._handle_hover)
-        result.clicked.connect(self._handle_click)
+        return result
+
+    def _create_hover_line(self, chart: QtCharts.QChart) -> tp.Any:
+        scene = chart.scene()
+        result = QGraphicsLineItem()
+        result.setPen(QPen(Qt.black, 0.0, Qt.DashLine))
+
+        def move_hover_line(new_value: QPointF) -> None:
+            x = new_value.x()
+
+            plot_area = chart.plotArea()
+            x_min = plot_area.left()
+            x_max = plot_area.right()
+            result.setVisible(x_min <= x <= x_max)
+            result.setLine(x, plot_area.bottom(), x, plot_area.top())
+
+        self.chart_hover_pos.connect(move_hover_line)
+        scene.addItem(result)
         return result
 
     def clear(self) -> None:
@@ -61,6 +84,7 @@ class ChartController(QObject):
         self._y_vals = set()
         self._rising_results = []
         self._falling_results = []
+        self._last_chart_x = -100.0
 
     def add_result(self, new_result: AvgTempResult) -> None:
         x = new_result.solar_mult
@@ -91,17 +115,16 @@ class ChartController(QObject):
         scene_pos = self._chart_view.mapToScene(point.toPoint())
         chart_item_pos = self._chart.mapFromScene(scene_pos)
         series_point = self._chart.mapToValue(chart_item_pos)
-        print("  Series data x coordinate:", series_point.x())
-        self.selected_solar_mult.emit(series_point.x())
+        series_x = series_point.x()
 
-    def _handle_hover(self, point: QPointF, moving_in: bool) -> None:
-        return
-        if moving_in:
-            self.selected_solar_mult.emit(point.x())
+        self.chart_hover_pos.emit(scene_pos)
 
-    def _handle_click(self, point: QPointF) -> None:
-        return
-        self.selected_solar_mult.emit(point.x())
+        # TODO smooth to a fraction of the data space extent,
+        # rather than an absolute magnitude.
+        abs_dx = abs(series_x - self._last_chart_x)
+        if abs_dx >= 0.1:
+            self._last_chart_x = series_x
+            self.selected_solar_mult.emit(series_x)
 
     def get_rising_solution(
         self, solar_mult: float
