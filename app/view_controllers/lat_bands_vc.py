@@ -24,6 +24,7 @@ class LatBandsVC:
         self.widget = QWidget.createWindowContainer(self.view)
         self.sphere_mgr = SphereVC(self.view)
         self.albedo_mapper = AlbedoTextureMapper()
+        self._prev_values = np.zeros(1)
 
     def _configure_view(self) -> None:
         self.view.defaultFrameGraph().setClearColor(QColor(0, 0, 0))
@@ -41,5 +42,7 @@ class LatBandsVC:
         pole_to_eq = albedos[::-1]
         all_values = np.concatenate((pole_to_eq, eq_to_pole))
 
-        texture_img_path = self.albedo_mapper.img_from_albedos(all_values)
-        self.sphere_mgr.set_texture(texture_img_path)
+        if not np.array_equal(all_values, self._prev_values):
+            texture_img_path = self.albedo_mapper.img_from_albedos(all_values)
+            self.sphere_mgr.set_texture(texture_img_path)
+            self._prev_values = all_values

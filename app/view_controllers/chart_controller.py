@@ -30,7 +30,7 @@ class ChartController(QObject):
         self._chart_view = chart_view
 
         # Handle chart hover events, with debounce.
-        self._chart.hovered.connect(self._handle_whole_chart_hover)
+        self._chart.hovered.connect(self._handle_chart_hover)
         self._last_chart_x = -100.0
 
         self._chart.removeAllSeries()
@@ -109,7 +109,7 @@ class ChartController(QObject):
             ymin, ymax = min(self._y_vals), max(self._y_vals)
             self._chart.axisY().setRange(ymin, ymax)
 
-    def _handle_whole_chart_hover(self, point: QPointF) -> None:
+    def _handle_chart_hover(self, point: QPointF) -> None:
         # Transform to the data coordinate-space of the chart.
         # See https://stackoverflow.com/a/44078533
         scene_pos = self._chart_view.mapToScene(point.toPoint())
