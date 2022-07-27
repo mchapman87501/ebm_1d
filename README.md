@@ -55,4 +55,4 @@ My UI skills are almost as rusty as my PyQt skills.  In particular the following
 
 The chart shows global average temperature (°C) on the y axis, and solar multiplier value on the x axis.  As explained in the edX course video, the "rising" and "falling" lines show how global average temperature varies as the solar multiplier varies, first from its minimum to its maximum, and then from maximum to minimum.  The underlying code solves for each new temperature given the current model state (temperature by latitude band) and solar multiplier.
 
-When you click on a point in the chart, the depictions of the planetary sphere update to show the planetary albedo, for rising and falling solar multiplier "trajectories", at the selected chart point.
+When you move your mouse across the chart, the depictions of the planetary sphere update to show the planetary albedo, for rising and falling solar multiplier "trajectories", at the mouse's current location on the chart.
