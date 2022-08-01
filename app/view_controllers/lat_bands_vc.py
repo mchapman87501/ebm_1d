@@ -5,7 +5,7 @@ Provides a way to depict albedo/temperature by latitude band.
 
 import numpy as np
 
-from PySide6.QtCore import Signal, QPoint, Qt
+from PySide6.QtCore import Signal
 from PySide6.QtGui import QColor
 from PySide6.QtWidgets import QWidget
 from PySide6.Qt3DExtras import Qt3DExtras
