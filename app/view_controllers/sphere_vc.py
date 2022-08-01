@@ -31,9 +31,7 @@ class SphereVC:
 
         ce = self.camera_entity = view.camera()
         ce.lens().setPerspectiveProjection(45.0, 1.0, 0.1, 1000.0)
-        ce.setPosition(V3(0, 8, 8))
-        ce.setUpVector(V3(0, 1, 0))
-        ce.setViewCenter(V3(0, 0, 0))
+        self.reset_camera()
 
         self.light = Qt3DCore.QEntity(self.root_entity)
         self.point_light = Qt3DRender.QPointLight(self.light)
@@ -65,6 +63,17 @@ class SphereVC:
 
         view.setRootEntity(self.root_entity)
         self.entity.setEnabled(True)
+
+        # Enable camera interaction
+        # https://github.com/gpiasenza/Qt3DTests/blob/master/MainWindow.cpp
+        self.cam_controller = Qt3DExtras.QOrbitCameraController(self.entity)
+        self.cam_controller.setCamera(self.camera_entity)
+
+    def reset_camera(self):
+        ce = self.camera_entity
+        ce.setPosition(V3(0, 8, 8))
+        ce.setUpVector(V3(0, 1, 0))
+        ce.setViewCenter(V3(0, 0, 0))
 
     def set_texture(self, img_path: Path) -> None:
         # This is from https://stackoverflow.com/q/49887994/2826337

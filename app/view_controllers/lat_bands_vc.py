@@ -5,12 +5,21 @@ Provides a way to depict albedo/temperature by latitude band.
 
 import numpy as np
 
+from PySide6.QtCore import Signal, QPoint, Qt
 from PySide6.QtGui import QColor
 from PySide6.QtWidgets import QWidget
 from PySide6.Qt3DExtras import Qt3DExtras
+from PySide6.Qt3DInput import Qt3DInput
 
 from .sphere_vc import SphereVC
 from .albedo_texture_mapper import AlbedoTextureMapper
+
+
+class _Clickable3DWindow(Qt3DExtras.Qt3DWindow):
+    double_clicked = Signal()
+
+    def mouseDoubleClickEvent(self, event: Qt3DInput.QMouseEvent) -> None:
+        self.double_clicked.emit()
 
 
 class LatBandsVC:
@@ -19,12 +28,15 @@ class LatBandsVC:
     """
 
     def __init__(self) -> None:
-        self.view = Qt3DExtras.Qt3DWindow()
+        # Documentation for Qt3DWindow is surprisingly scarce...
+        self.view = _Clickable3DWindow()  # Qt3DExtras.Qt3DWindow()
         self._configure_view()
         self.widget = QWidget.createWindowContainer(self.view)
         self.sphere_mgr = SphereVC(self.view)
         self.albedo_mapper = AlbedoTextureMapper()
         self._prev_values = np.zeros(1)
+
+        self.view.double_clicked.connect(self.sphere_mgr.reset_camera)
 
     def _configure_view(self) -> None:
         self.view.defaultFrameGraph().setClearColor(QColor(0, 0, 0))
