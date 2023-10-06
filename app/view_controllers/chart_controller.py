@@ -126,9 +126,7 @@ class ChartController(QObject):
             self._last_chart_x = series_x
             self.selected_solar_mult.emit(series_x)
 
-    def get_rising_solution(
-        self, solar_mult: float
-    ) -> AvgTempResult | None:
+    def get_rising_solution(self, solar_mult: float) -> AvgTempResult | None:
         """
         Get the 'rising solar multiplier' latitude bands for
         a given solar multiplier.
@@ -139,9 +137,7 @@ class ChartController(QObject):
         i = self._nearest(solar_mult, self._rising_results)
         return self._rising_results[i]
 
-    def get_falling_solution(
-        self, solar_mult: float
-    ) -> AvgTempResult | None:
+    def get_falling_solution(self, solar_mult: float) -> AvgTempResult | None:
         """
         Get the 'falling solar multiplier' latitude bands for
         a given solar multiplier.
