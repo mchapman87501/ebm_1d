@@ -14,9 +14,6 @@ jobs:
       - checkout
 
       - python/install-packages:
-          pip-dependency-file: requirements.txt
-          pkg-manager: pip
-      - python/install-packages:
           pip-dependency-file: testing_requirements.txt
           pkg-manager: pip
 

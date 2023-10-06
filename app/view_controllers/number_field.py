@@ -5,8 +5,8 @@ Provides a QLineEdit controller that allows numeric input.
 
 import typing as tp
 
-from PySide6.QtWidgets import QLineEdit
 from PySide6.QtCore import QObject, Signal
+from PySide6.QtWidgets import QLineEdit
 
 NumberConverter = tp.Callable[[str], float]
 
@@ -18,7 +18,7 @@ class NumberField(QObject):
         self, text_field: QLineEdit, converter: NumberConverter
     ) -> None:
         super().__init__()
-        self._value: tp.Optional[float] = None
+        self._value: float | None = None
         self._field = text_field
         self._converter = converter
         self._field.editingFinished.connect(self._text_field_edited)
@@ -30,8 +30,8 @@ class NumberField(QObject):
                 if new_value != self._value:
                     self._value = new_value
                     self.value_changed.emit(self._value)
-        except Exception as info:
-            print("Error handling number field change:", info)
+        except Exception:
+            pass
 
     def value(self) -> float:
         if self._value is None:

@@ -3,7 +3,6 @@
 Define geometry/insolation of earth in terms of latitude bands.
 """
 
-import typing as tp
 
 import numpy as np
 
@@ -24,7 +23,7 @@ class EarthModel:
         self.insol_by_lat = self._get_insol_by_lat(self.lats_frac)
 
     @staticmethod
-    def _get_lat_bands(num_zones: int) -> tp.Tuple[float, np.ndarray]:
+    def _get_lat_bands(num_zones: int) -> tuple[float, np.ndarray]:
         d2r = np.pi / 180.0
         zone_width_deg = 90.0 / num_zones
         zw2 = d2r * zone_width_deg / 2.0
@@ -59,7 +58,7 @@ class EarthModel:
         S = 1370.0  # Solar constant, watts / m**2
 
         # Ratio of cross-sectional area of a sphere to surface area of
-        # a sphere is (π * r**2) / (4 * π * r**2)
+        # a sphere is (π * r**2) / (4 * π * r**2)
         solar_constant = S / 4.0
 
         # Assume axial tilt relative to orbital plane averages to zero

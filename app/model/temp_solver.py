@@ -4,6 +4,7 @@ Provides a way to solve iteratively for latitudinal temperature.
 """
 
 from dataclasses import dataclass
+
 import numpy as np
 
 from .earth_model import EarthModel
@@ -42,7 +43,7 @@ class TempSolver:
         b = 2.17  # Radiative heat-loss coefficient, slope
         denom = b + f
 
-        for i in range(max_iter):
+        for _i in range(max_iter):
             temp_old = temp
             albedo = self._get_albedo(temp)
             temp_avg = sum(self._em.lats_frac * temp)

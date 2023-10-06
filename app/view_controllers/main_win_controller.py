@@ -4,16 +4,14 @@ Adds behavior to the main window.
 """
 
 import sys
-import typing as tp
 
-from PySide6.QtWidgets import QApplication
 from PySide6.QtCore import QTimer
+from PySide6.QtWidgets import QApplication
 
 from ..layout.main_win import MainWin
-from ..model.model import Model, ResultGen, AvgTempResult
-
-from .number_field import NumberField
+from ..model.model import AvgTempResult, Model, ResultGen
 from .chart_controller import ChartController
+from .number_field import NumberField
 
 
 class MainWinController:
@@ -35,9 +33,9 @@ class MainWinController:
         )
         self._lat_trans_field = NumberField.for_float(mw.lhtc_field)
 
-        self._model: tp.Optional[Model] = None
-        self._result_gen: tp.Optional[ResultGen] = None
-        self._results: tp.List[AvgTempResult] = []
+        self._model: Model | None = None
+        self._result_gen: ResultGen | None = None
+        self._results: list[AvgTempResult] = []
 
         self._chart_controller = ChartController(
             mw.gatsm_chart, mw.gatsm_view
@@ -89,11 +87,10 @@ class MainWinController:
                 sm_min, sm_max, gat, lat_bands, lat_heat_transfer
             )
             self._get_result_later(10)
-        except ValueError as info:
+        except ValueError:
             pass
-            print("Could not create new model: ", info)
 
-    def _get_result_later(self, msec: tp.Optional[int] = None) -> None:
+    def _get_result_later(self, msec: int | None = None) -> None:
         if msec is None:
             msec = 10
         QTimer.singleShot(msec, self._get_model_result)

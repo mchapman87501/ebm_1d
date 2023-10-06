@@ -4,12 +4,13 @@ Provides a way to generate texture map images from albedo values.
 """
 
 import math
-import numpy as np
-from pathlib import Path
-from PIL import Image
 import shutil
 import tempfile
 import typing as tp
+from pathlib import Path
+
+import numpy as np
+from PIL import Image
 
 
 def _gen_img_ids() -> tp.Generator[str, None, None]:
@@ -47,11 +48,11 @@ class AlbedoTextureMapper:
             return self._create_img(values)
         return self._proportional_img(list(values))
 
-    def _proportional_img(self, lat_values: tp.List[int]) -> Path:
+    def _proportional_img(self, lat_values: list[int]) -> Path:
         # Map the per-latitude values to cartesian.  Assume the first value
         # is for latitude 0, the last for latitude 90°.
         num_intervals = len(lat_values)
-        values: tp.List[int] = []
+        values: list[int] = []
         dlat = math.pi / num_intervals
         lat = -math.pi / 2.0
         scale = 100.0

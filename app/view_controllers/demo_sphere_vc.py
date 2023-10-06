@@ -7,13 +7,12 @@ Creates a Qt app to interactively test sphere_vc.py.
 import sys
 
 import numpy as np
-
-from PySide6.QtGui import QColor, QAction
-from PySide6.QtWidgets import QApplication, QMainWindow, QWidget
 from PySide6.Qt3DExtras import Qt3DExtras
+from PySide6.QtGui import QAction, QColor
+from PySide6.QtWidgets import QApplication, QMainWindow, QWidget
 
-from .sphere_vc import SphereVC
 from .albedo_texture_mapper import AlbedoTextureMapper
+from .sphere_vc import SphereVC
 
 
 class MainWin(QMainWindow):

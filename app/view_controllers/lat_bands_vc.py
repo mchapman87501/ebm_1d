@@ -1,18 +1,15 @@
 #!/usr/bin/env python3
-"""
-Provides a way to depict albedo/temperature by latitude band.
-"""
+"""Provides a way to depict albedo/temperature by latitude band."""
 
 import numpy as np
-
+from PySide6.Qt3DExtras import Qt3DExtras
+from PySide6.Qt3DInput import Qt3DInput
 from PySide6.QtCore import Signal
 from PySide6.QtGui import QColor
 from PySide6.QtWidgets import QWidget
-from PySide6.Qt3DExtras import Qt3DExtras
-from PySide6.Qt3DInput import Qt3DInput
 
-from .sphere_vc import SphereVC
 from .albedo_texture_mapper import AlbedoTextureMapper
+from .sphere_vc import SphereVC
 
 
 class _Clickable3DWindow(Qt3DExtras.Qt3DWindow):
@@ -23,9 +20,7 @@ class _Clickable3DWindow(Qt3DExtras.Qt3DWindow):
 
 
 class LatBandsVC:
-    """
-    LatBandsVC lays out and controls a view of latitude bands.
-    """
+    """LatBandsVC lays out and controls a view of latitude bands."""
 
     def __init__(self) -> None:
         # Documentation for Qt3DWindow is surprisingly scarce...
@@ -47,7 +42,6 @@ class LatBandsVC:
         albedos is a sequence of albedo values for one hemisphere,
         extending from equator to pole.
         """
-
         # Albedos covers one hemisphere from equator to pole, so it
         # needs to be doubled to represent pole to pole
         eq_to_pole = albedos

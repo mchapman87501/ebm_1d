@@ -6,11 +6,12 @@ Provides a way to present a view of a planetary sphere.
 import os
 from pathlib import Path
 
-from PySide6.QtGui import QColor, QVector3D as V3
-from PySide6.QtCore import QUrl
-from PySide6.Qt3DExtras import Qt3DExtras
 from PySide6.Qt3DCore import Qt3DCore
+from PySide6.Qt3DExtras import Qt3DExtras
 from PySide6.Qt3DRender import Qt3DRender
+from PySide6.QtCore import QUrl
+from PySide6.QtGui import QColor
+from PySide6.QtGui import QVector3D as V3
 
 
 # See https://code.qt.io/cgit/qt/qt3d.git/tree/examples/qt3d/basicshapes-cpp/main.cpp?h=5.13  # noqa: E501
@@ -24,7 +25,9 @@ class SphereVC:
     def __init__(self, view: Qt3DExtras.Qt3DWindow) -> None:
         """
         Initialize a new instance.
+
         Args:
+        ----
             view: where to render the planetary sphere.
         """
         self.root_entity = Qt3DCore.QEntity()

@@ -1,2 +1,9 @@
 [tool.black]
-line-length=78
+line-length = 78
+
+[tool.ruff]
+line-length = 78
+select = ["ALL"]
+ignore = ["D203", "TID252"]
+
+exclude = [".git", ".direnv", ".pytest_cache"]

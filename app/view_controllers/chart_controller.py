@@ -5,13 +5,13 @@ Provides user interaction for a rising/falling temperature chart.
 
 import typing as tp
 
-from PySide6.QtCore import Qt, QObject, Signal, QPointF
-from PySide6.QtWidgets import QGraphicsLineItem
-from PySide6.QtGui import QPen
 from PySide6 import QtCharts
+from PySide6.QtCore import QObject, QPointF, Qt, Signal
+from PySide6.QtGui import QPen
+from PySide6.QtWidgets import QGraphicsLineItem
 
-from ..model.model import AvgTempResult
 from ..layout.mousing_chart import MousingChart
+from ..model.model import AvgTempResult
 
 
 class ChartController(QObject):
@@ -48,10 +48,10 @@ class ChartController(QObject):
         self._chart.setCursor(Qt.CrossCursor)
 
         # Track added values.
-        self._x_vals: tp.Set[float] = set()
-        self._y_vals: tp.Set[float] = set()
-        self._rising_results: tp.List[AvgTempResult] = []
-        self._falling_results: tp.List[AvgTempResult] = []
+        self._x_vals: set[float] = set()
+        self._y_vals: set[float] = set()
+        self._rising_results: list[AvgTempResult] = []
+        self._falling_results: list[AvgTempResult] = []
 
     def _line_series(self, name: str) -> QtCharts.QLineSeries:
         result = QtCharts.QLineSeries()
@@ -128,7 +128,7 @@ class ChartController(QObject):
 
     def get_rising_solution(
         self, solar_mult: float
-    ) -> tp.Optional[AvgTempResult]:
+    ) -> AvgTempResult | None:
         """
         Get the 'rising solar multiplier' latitude bands for
         a given solar multiplier.
@@ -141,7 +141,7 @@ class ChartController(QObject):
 
     def get_falling_solution(
         self, solar_mult: float
-    ) -> tp.Optional[AvgTempResult]:
+    ) -> AvgTempResult | None:
         """
         Get the 'falling solar multiplier' latitude bands for
         a given solar multiplier.
@@ -153,7 +153,7 @@ class ChartController(QObject):
         return self._falling_results[i]
 
     def _nearest(
-        self, solar_mult: float, records: tp.List[AvgTempResult]
+        self, solar_mult: float, records: list[AvgTempResult]
     ) -> int:
         dists = [
             (abs(r.solar_mult - solar_mult), i) for i, r in enumerate(records)

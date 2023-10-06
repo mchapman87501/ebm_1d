@@ -2,6 +2,7 @@
 # type: ignore
 
 import pytest
+
 from .earth_model import EarthModel
 
 

@@ -3,11 +3,11 @@
 Provides a QChart that tracks mouse movement.
 """
 
-from PySide6.QtCore import Signal, QPointF
+from PySide6 import QtCharts
+from PySide6.QtCore import QPointF, Signal
 from PySide6.QtWidgets import (
     QGraphicsSceneHoverEvent,
 )
-from PySide6 import QtCharts
 
 
 class MousingChart(QtCharts.QChart):

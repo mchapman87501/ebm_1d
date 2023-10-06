@@ -1,17 +1,16 @@
 #!/usr/bin/env python3
-import typing as tp
 
 import numpy as np
 import pytest
 
-from .temp_solver import TempSolver, Error
 from .earth_model import EarthModel
+from .temp_solver import Error, TempSolver
 
 
 def get_t_avg(
     solver: TempSolver, smults: np.ndarray, temps: np.ndarray
-) -> tp.Tuple[np.ndarray, np.ndarray]:
-    gats: tp.List[float] = []
+) -> tuple[np.ndarray, np.ndarray]:
+    gats: list[float] = []
     for sm in smults:
         solution = solver.solve(sm, temps)
         gats.append(solution.avg)
@@ -42,7 +41,7 @@ def test_default_scenario() -> None:
     # sequence of rising temperatures, and the change
     # in temperature should always be > 0.
     dgat_ln = np.log10(dgat_rising)
-    assert 1 == len(dgat_ln[dgat_ln > 1])
+    assert len(dgat_ln[dgat_ln > 1]) == 1
 
     dgat_falling = np.diff(gat_falling)
     dgat_ln = np.log10(np.abs(dgat_falling))

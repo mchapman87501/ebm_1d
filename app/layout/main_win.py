@@ -2,20 +2,21 @@
 # type: ignore
 
 import sys
-from PySide6.QtGui import QAction, QPainter, QIntValidator, QDoubleValidator
+
+from PySide6 import QtCharts
+from PySide6.QtCore import Qt
+from PySide6.QtGui import QAction, QDoubleValidator, QIntValidator, QPainter
 from PySide6.QtWidgets import (
     QApplication,
-    QMainWindow,
-    QWidget,
-    QHBoxLayout,
-    QVBoxLayout,
     QGridLayout,
-    QSizePolicy,
+    QHBoxLayout,
     QLabel,
     QLineEdit,
+    QMainWindow,
+    QSizePolicy,
+    QVBoxLayout,
+    QWidget,
 )
-from PySide6.QtCore import Qt
-from PySide6 import QtCharts
 
 from ..view_controllers.lat_bands_vc import LatBandsVC
 from .mousing_chart import MousingChart
@@ -28,8 +29,6 @@ class MainWinContent(QWidget):
         super().__init__()
 
         layout = self._main_layout = QVBoxLayout()
-        size = QSizePolicy(QSizePolicy.Preferred, QSizePolicy.Preferred)
-        size.setVerticalStretch(1)
 
         grid = QGridLayout()
         grid.setColumnStretch(3, 1)
@@ -87,6 +86,7 @@ class MainWinContent(QWidget):
         chart_view = self.gatsm_view = QtCharts.QChartView(chart)
         chart_view.setRenderHint(QPainter.Antialiasing)
 
+        size = QSizePolicy(QSizePolicy.Preferred, QSizePolicy.Preferred)
         size.setVerticalStretch(1)
         chart_view.setSizePolicy(size)
         chart_view.setMinimumSize(480, 320)

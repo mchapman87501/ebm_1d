@@ -1,22 +1,21 @@
 #!/usr/bin/env python3
+
 import numpy as np
-from PIL import Image
 import pytest
-import typing as tp
+from PIL import Image
 
 from .albedo_texture_mapper import AlbedoTextureMapper
 
+ATM1TestCases = list[tuple[list[float], set[int]]]
 
-ATM1TestCases = tp.List[tp.Tuple[tp.List[float], tp.Set[int]]]
 
-
-@pytest.fixture  # type: ignore
+@pytest.fixture()  # type: ignore
 def atm1_cases() -> ATM1TestCases:
     alb_range = [x / 100.0 for x in range(100)]
-    alb_expected = set(int(255 * x) for x in alb_range)
+    alb_expected = {int(255 * x) for x in alb_range}
     return [
-        ([0.3, 0.5, 0.6], set([76, 127, 153])),
-        ([0.5] * 100, set([127])),
+        ([0.3, 0.5, 0.6], {76, 127, 153}),
+        ([0.5] * 100, {127}),
         (alb_range, alb_expected),
     ]
 
@@ -48,4 +47,3 @@ def test_atm1(atm1_cases) -> None:  # type: ignore
     # Disabled - cannot guarantee m.__del__ completes before
     # the cleanup test.
     # del m
-    # assert not wd.is_dir()

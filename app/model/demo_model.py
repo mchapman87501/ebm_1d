@@ -4,11 +4,10 @@
 Use the model to create a plot showing hysteresis -
 the idea of climate tipping points.
 """
-import typing as tp
 
 import matplotlib.pyplot as plt
 
-from .model import Model, ResultSeries, AvgTempResult
+from .model import AvgTempResult, Model, ResultSeries
 
 
 def plot_averages(*result_sets: ResultSeries) -> None:
@@ -29,8 +28,8 @@ def plot_averages(*result_sets: ResultSeries) -> None:
 
 def main() -> None:
     m = Model()
-    rising: tp.List[AvgTempResult] = []
-    falling: tp.List[AvgTempResult] = []
+    rising: list[AvgTempResult] = []
+    falling: list[AvgTempResult] = []
     for solution in m.gen_temps(4.0, 8.0, -60.0, 9):
         seq = rising if solution.delta > 0 else falling
         seq.append(solution)

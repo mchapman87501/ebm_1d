@@ -7,13 +7,13 @@ by A. Henderson-Sellers and K. McGuffie.
 Matlab implementation was written by David Holland, 2002/02.
 """
 
-from dataclasses import dataclass
 import typing as tp
+from dataclasses import dataclass
 
 import numpy as np
 
-from .temp_solver import TempSolver, Solution
 from .earth_model import EarthModel
+from .temp_solver import Solution, TempSolver
 
 
 @dataclass
@@ -26,7 +26,7 @@ class AvgTempResult:
 @dataclass
 class ResultSeries:
     summary: str
-    results: tp.List[AvgTempResult]
+    results: list[AvgTempResult]
 
 
 ResultGen = tp.Generator[AvgTempResult, None, None]
