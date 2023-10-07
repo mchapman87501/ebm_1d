@@ -1,8 +1,4 @@
 numpy~=1.26
-Pillow~=10.0.1
-
-# PySide6 6.3.1 QTextureLoader seems not to work - result is
-# a black sphere.
-# And 6.3.1 seems to have a massive memory leak somewhere in
-# Qt3DCore
-PySide6~=6.2, <6.3
+# On macOS with homebrew Python, PySide6 >= 6.3 fails
+# to render latitude textures.  I don't know why.
+PySide6~=6.2,<6.3

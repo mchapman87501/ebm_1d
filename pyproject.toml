@@ -1,9 +1,13 @@
+[project]
+name="ebm_1d"
+requires-python = ">=3.10"
+
 [tool.black]
 line-length = 78
 
 [tool.ruff]
 line-length = 78
-select = ["ALL"]
-ignore = ["D203", "TID252"]
+select = ["E", "F"]
+ignore = []
 
 exclude = [".git", ".direnv", ".pytest_cache"]

@@ -46,8 +46,8 @@ class MainWin(QMainWindow):
         up = np.arange(0.0, 1.0, 0.1)
         down = np.arange(1.0, 0.0, -0.1)
         albedos = np.concatenate((down, up))
-        p = self._textures.img_from_albedos(albedos)
-        self.sphere_vc.set_texture(p)
+        img_path = self._textures.img_path_from_albedos(albedos)
+        self.sphere_vc.set_texture(img_path)
 
 
 def main() -> None:

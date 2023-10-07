@@ -1,10 +1,8 @@
-#!/usr/bin/env python3
-
 import numpy as np
 import pytest
 
-from .earth_model import EarthModel
-from .temp_solver import Error, TempSolver
+from app.model.earth_model import EarthModel
+from app.model.temp_solver import Error, TempSolver
 
 
 def get_t_avg(

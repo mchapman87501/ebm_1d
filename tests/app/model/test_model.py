@@ -1,6 +1,4 @@
-#!/usr/bin/env python3
-
-from .model import Model
+from app.model.model import Model
 
 
 def test_gen_temps() -> None:

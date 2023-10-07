@@ -18,13 +18,10 @@ from PySide6.QtGui import QVector3D as V3
 # I try to separate GUI-related code into layout and interaction, but of
 # course "widgets" - the things being arranged - encompass both.
 class SphereVC:
-    """
-    SphereVC lays out and controls a view of a planetary sphere.
-    """
+    """SphereVC lays out and controls a view of a planetary sphere."""
 
     def __init__(self, view: Qt3DExtras.Qt3DWindow) -> None:
-        """
-        Initialize a new instance.
+        """Initialize a new instance.
 
         Args:
         ----
@@ -64,6 +61,8 @@ class SphereVC:
         self.entity.addComponent(self.material)
         self.entity.addComponent(self.transform)
 
+        self.loader: Qt3DRender.QTextureLoader | None = None
+
         view.setRootEntity(self.root_entity)
         self.entity.setEnabled(True)
 
@@ -72,18 +71,29 @@ class SphereVC:
         self.cam_controller = Qt3DExtras.QOrbitCameraController(self.entity)
         self.cam_controller.setCamera(self.camera_entity)
 
-    def reset_camera(self):
+    def reset_camera(self) -> None:
+        """Reset the camera to its default position/orientation."""
         ce = self.camera_entity
         ce.setPosition(V3(0, 8, 8))
         ce.setUpVector(V3(0, 1, 0))
         ce.setViewCenter(V3(0, 0, 0))
 
     def set_texture(self, img_path: Path) -> None:
+        """Set the texture image for self's sphere.
+
+        Args:
+            img_path: image file containing a texture
+        """
         # This is from https://stackoverflow.com/q/49887994/2826337
         # and from https://forum.qt.io/topic/106370/qdiffusespecularmaterial-diffuse-texture/4  # noqa: E501
-        loader = Qt3DRender.QTextureLoader(self.entity)
         local_pathname = os.fspath(img_path.resolve())
         img_url = QUrl.fromLocalFile(local_pathname)
-        loader.setSource(img_url)
 
-        self.material.setDiffuse(loader)
+        if self.loader is None:
+            ldr = self.loader = Qt3DRender.QTextureLoader(self.entity)
+            ldr.setMirrored(False)
+
+        self.loader.setSource(img_url)
+
+        if self.material.diffuse() != self.loader:
+            self.material.setDiffuse(self.loader)

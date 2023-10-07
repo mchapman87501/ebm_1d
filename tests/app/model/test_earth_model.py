@@ -1,9 +1,6 @@
-#!/usr/bin/env python3
-# type: ignore
-
 import pytest
 
-from .earth_model import EarthModel
+from app.model.earth_model import EarthModel
 
 
 def test_ctor() -> None:

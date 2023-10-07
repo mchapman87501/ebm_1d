@@ -49,6 +49,6 @@ class LatBandsVC:
         all_values = np.concatenate((pole_to_eq, eq_to_pole))
 
         if not np.array_equal(all_values, self._prev_values):
-            texture_img_path = self.albedo_mapper.img_from_albedos(all_values)
-            self.sphere_mgr.set_texture(texture_img_path)
+            path = self.albedo_mapper.img_path_from_albedos(all_values)
+            self.sphere_mgr.set_texture(path)
             self._prev_values = all_values
