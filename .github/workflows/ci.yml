@@ -25,10 +25,10 @@ jobs:
         python -m pip install -r testing_requirements.txt
     - name: Lint with flake8
       run: |
-        flake8 --count --show-source --statistics one_dim_ebm.py app
-    - name: Test with pytest
+        flake8 --count --show-source --statistics one_dim_ebm.py app tests demos
+    - name: Test non-GUI code using pytest
       run: |
-        pytest --cov=app.model
+        pytest tests/app/model --cov=app.model
     - name: Double-check formatting
       run: |
-        black --check --quiet one_dim_ebm.py app
+        black --check --quiet one_dim_ebm.py app tests demos

@@ -21,6 +21,6 @@ install:
     - python3 -m pip install --upgrade pip
     - python3 -m pip install -r testing_requirements.txt
 script:
-    - flake8 --count --show-source --statistics .
-    - pytest --cov=app.model
-    - black --check --quiet .
+    - flake8 --count --show-source --statistics one_dim_ebm.py app tests demos
+    - pytest tests/app/model --cov=app.model
+    - black --check --quiet one_dim_ebm.py app tests demos

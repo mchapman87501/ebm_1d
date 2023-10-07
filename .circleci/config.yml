@@ -19,15 +19,15 @@ jobs:
 
       - run:
           name: lint with flake8
-          command: flake8 --count --show-source --statistics one_dim_ebm.py app
+          command: flake8 --count --show-source --statistics one_dim_ebm.py app tests demos
 
       - run:
-          name: Run tests
-          command: python -m pytest --cov=app.model
+          name: Run non-GUI tests
+          command: python -m pytest tests/app/model --cov=app.model
 
       - run:
           name: Double-check formatting
-          command: black --check --quiet one_dim_ebm.py app
+          command: black --check --quiet one_dim_ebm.py app tests demos
 
       - store_artifacts:
           path: test-reports
