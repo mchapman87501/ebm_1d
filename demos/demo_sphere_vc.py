@@ -11,8 +11,8 @@ from PySide6.Qt3DExtras import Qt3DExtras
 from PySide6.QtGui import QAction, QColor
 from PySide6.QtWidgets import QApplication, QMainWindow, QWidget
 
-from .albedo_texture_mapper import AlbedoTextureMapper
-from .sphere_vc import SphereVC
+from app.view_controllers.albedo_texture_mapper import AlbedoTextureMapper
+from app.view_controllers.sphere_vc import SphereVC
 
 
 class MainWin(QMainWindow):

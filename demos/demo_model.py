@@ -7,7 +7,7 @@ the idea of climate tipping points.
 
 import matplotlib.pyplot as plt
 
-from .model import AvgTempResult, Model, ResultSeries
+from app.model.model import AvgTempResult, Model, ResultSeries
 
 
 def plot_averages(*result_sets: ResultSeries) -> None:
