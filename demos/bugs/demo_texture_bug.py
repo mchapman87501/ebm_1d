@@ -87,8 +87,14 @@ class MainWin(QMainWindow):
 
 
 if __name__ == "__main__":
+
     app = QApplication(sys.argv)
     win = MainWin()
+
+    if len(sys.argv) >= 2:
+        venv_name = sys.argv[1]
+        win.setWindowTitle(venv_name)
+
     win.exit_action.triggered.connect(sys.exit)
     win.show()
     app.exec()
