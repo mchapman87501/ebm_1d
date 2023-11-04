@@ -1,1 +1,3 @@
 /venv_pyside6_*
+/venvs
+/.direnv
