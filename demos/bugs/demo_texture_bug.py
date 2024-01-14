@@ -93,9 +93,13 @@ if __name__ == "__main__":
     win = MainWin()
 
     if len(sys.argv) >= 2:
-        venv_name = sys.argv[1]
+        venv_name = Path(sys.argv[1]).name
+        vinfo = sys.version_info[:3]
+        py_version = ".".join(str(comp) for comp in vinfo)
         pyside_version = PySide6.__version__
-        win.setWindowTitle(f"{pyside_version} ({venv_name})")
+        win.setWindowTitle(
+            f"Python {py_version} - PySide6 {pyside_version} - {venv_name}"
+        )
 
     win.exit_action.triggered.connect(sys.exit)
     win.show()
