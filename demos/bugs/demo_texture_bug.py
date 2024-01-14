@@ -1,17 +1,19 @@
 """
-Demonstrate a change in texture rendering behavior
-that appears in PySide6 6.3.x.
+Demonstrate a change in texture rendering behavior starting in PySide6 6.3.x.
+I think this is the first version to use RHI with Metal backend.
 """
 
 
 import sys
 from pathlib import Path
 
-from PySide6.QtCore import QUrl
+import PySide6
 from PySide6.Qt3DCore import Qt3DCore
 from PySide6.Qt3DExtras import Qt3DExtras
 from PySide6.Qt3DRender import Qt3DRender
-from PySide6.QtGui import QAction, QColor, QVector3D as Vec3
+from PySide6.QtCore import QUrl
+from PySide6.QtGui import QAction, QColor
+from PySide6.QtGui import QVector3D as Vec3
 from PySide6.QtWidgets import QApplication, QMainWindow, QWidget
 
 
@@ -87,13 +89,13 @@ class MainWin(QMainWindow):
 
 
 if __name__ == "__main__":
-
     app = QApplication(sys.argv)
     win = MainWin()
 
     if len(sys.argv) >= 2:
         venv_name = sys.argv[1]
-        win.setWindowTitle(venv_name)
+        pyside_version = PySide6.__version__
+        win.setWindowTitle(f"{pyside_version} ({venv_name})")
 
     win.exit_action.triggered.connect(sys.exit)
     win.show()
